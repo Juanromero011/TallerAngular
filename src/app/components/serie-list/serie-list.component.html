@@ -1,28 +1,45 @@
-<div class="container mt-4">
-  <div class="header-box mb-3">
-    <h2>TV Series</h2>
-  </div>
-  
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Channel</th>
-        <th scope="col">Seasons</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let serie of series">
-        <th scope="row">{{ serie.id }}</th>
-        <td>{{ serie.name }}</td>
-        <td>{{ serie.channel }}</td>
-        <td>{{ serie.seasons }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- Columna de la tabla -->
+    <div class="col-md-7">
+      <div class="header-box mb-3">
+        <h2>TV Series</h2>
+      </div>
+      
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Channel</th>
+            <th scope="col">Seasons</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let serie of series" (click)="onSelectSerie(serie)" class="clickable-row">
+            <th scope="row">{{ serie.id }}</th>
+            <td class="serie-name">{{ serie.name }}</td>
+            <td>{{ serie.channel }}</td>
+            <td>{{ serie.seasons }}</td>
+          </tr>
+        </tbody>
+      </table>
 
-  <div class="average-box mt-3 p-3">
-    <p class="mb-0"><strong>Seasons average: {{ averageSeasons | number:'1.0-0' }}</strong></p>
+      <div class="average-box mt-3 p-3">
+        <p class="mb-0"><strong>Seasons average: {{ averageSeasons | number:'1.0-0' }}</strong></p>
+      </div>
+    </div>
+
+    <!-- Columna del detalle -->
+    <div class="col-md-5">
+      <div *ngIf="selectedSerie" class="serie-detail card">
+        <img [src]="selectedSerie.poster" class="card-img-top" [alt]="selectedSerie.name">
+        <div class="card-body">
+          <h5 class="card-title">{{ selectedSerie.name }}</h5>
+          <p class="card-text">{{ selectedSerie.description }}</p>
+          <a [href]="selectedSerie.webpage" target="_blank" class="btn btn-link p-0">{{ selectedSerie.webpage }}</a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
